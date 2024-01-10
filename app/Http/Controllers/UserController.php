@@ -20,37 +20,26 @@ class UserController extends Controller
 
         $res = $newUser->save();
 
-        return $res;
+        return redirect('/user');
     }
 
     public function getUsers(){
         return User::all();
         }
 
-        public function updateUser(Request $request, $id = null)
-        {
-            // Validation logic (customize as needed)
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'email' => 'required|email|unique:users,email,' . ($id ? $id : 'NULL') . ',id',
-                'role' => 'required|string|max:255',
-                // Add more validation rules as needed
-            ]);
+        public function updateUser(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'role' => 'required|string',
+        ]);
 
-            // Logic for storing/updating a user in the database
-            $user = $id ? User::findOrFail($id) : new User;
-            $user->fill($request->except($id ? ['password'] : []));
+        $user = User::findOrFail($id);
+        $user->update($validatedData);
 
-            // Set password only if provided and not empty
-            if ($request->filled('password')) {
-                $user->password = bcrypt($request->input('password'));
-            }
-
-            $user->save();
-
-            // Redirect to the user list view
-            return redirect('/user');
-        }
+        return response()->json($user, 200);
+    }
 
     public function deleteUser(Request $request){
         // dd($request->id);

@@ -2,10 +2,13 @@
     <Layout>
         <!-- Main modal -->
         <Modal
-            :modalContent="modalContent"
-            :buttonLabel="isNewUser ? 'Add User' : 'Edit User'"
-            :cancelLabel="isNewUser ? 'Cancel' : 'Close'"
-            :saveLabel="isNewUser ? 'Submit' : 'Update'"
+            :modalContent="{
+                title: 'Create New User',
+                content: 'Please fill in the user details',
+            }"
+            buttonLabel="Add User"
+            cancelLabel="Cancel"
+            saveLabel="Submit"
             @save="submitUser"
         >
             <form slot="content" @submit.prevent="submitUser">
@@ -17,7 +20,7 @@
                             >Name</label
                         >
                         <input
-                            v-model="editedUser.name"
+                            v-model="name"
                             type="text"
                             name="name"
                             id="name"
@@ -33,7 +36,7 @@
                             >Email</label
                         >
                         <input
-                            v-model="editedUser.email"
+                            v-model="email"
                             type="text"
                             name="email"
                             id="email"
@@ -49,7 +52,7 @@
                             >Select a Role</label
                         >
                         <select
-                            v-model="editedUser.role"
+                            v-model="role"
                             name="role"
                             id="role"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -63,14 +66,14 @@
                             <option value="Employee">Employee</option>
                         </select>
                     </div>
-                    <div v-if="isNewUser" class="col-span-2 border-red-500">
+                    <div class="col-span-2 border-red-500">
                         <label
                             for="password"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                             >Temporary Password</label
                         >
                         <input
-                            v-model="editedUser.password"
+                            v-model="password"
                             type="text"
                             name="password"
                             id="password"
@@ -117,15 +120,14 @@
                             <Modal
                                 :modalContent="{
                                     title: 'Edit User',
-                                    content: 'Please edit the user details',
-                                    disablebtn: false,
+                                    content: 'Please edit in the user details',
                                 }"
-                                :buttonLabel="'Edit'"
-                                :cancelLabel="'Cancel'"
-                                :saveLabel="'Update'"
-                                @save="() => editUser(user)"
+                                buttonLabel="Edit"
+                                cancelLabel="Cancel"
+                                saveLabel="Update"
+                                @save="updateUser"
                             >
-                                <form>
+                                <form @submit.prevent="updateUser">
                                     <div class="mb-4">
                                         <label
                                             for="name"
@@ -139,6 +141,8 @@
                                             id="name"
                                             :value="user.name"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                            placeholder="Name"
+                                            required
                                         />
                                     </div>
 
@@ -156,6 +160,8 @@
                                             id="email"
                                             :value="user.email"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                            placeholder="Email"
+                                            required
                                         />
                                     </div>
 
@@ -172,6 +178,8 @@
                                             name="role"
                                             id="role"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Select a role"
+                                            required
                                         >
                                             <option selected>
                                                 Choose a role
@@ -206,7 +214,7 @@
 
 <script>
 import axios from "axios";
-import Modal from "@/components/Modal.vue";
+import Modal from "@/Component/Modal.vue";
 
 export default {
     components: {
@@ -214,92 +222,12 @@ export default {
     },
     data() {
         return {
+            name: "",
+            email: "",
+            role: "",
+            password: "",
             modalStatus: false,
-            users: [],
-            editingUserId: null,
-            editedUser: {
-                name: "",
-                email: "",
-                role: "",
-                password: "",
-            },
-            modalContent: {
-                title: "Create New User",
-                content: "Please fill in the user details",
-                disablebtn: false,
-            },
-        };
-    },
-    computed: {
-        isNewUser() {
-            return !this.editingUserId;
         },
     },
-    methods: {
-        submitUser() {
-            const { editedUser, editingUserId, isNewUser, password } = this;
-            const userPayload = {
-                ...editedUser,
-            };
-
-            if (editingUserId) {
-                delete userPayload.password;
-                axios
-                    .post(`/update-user/${editingUserId}`, userPayload)
-                    .then(({ data }) => {
-                        this.clearForm();
-                        this.changeModalStatus();
-                        this.getUsers();
-                    });
-            } else {
-                axios.post("/submit-user", userPayload).then(({ data }) => {
-                    this.clearForm();
-                    this.changeModalStatus();
-                    this.getUsers();
-                    this.users.push(data);
-                });
-            }
-        },
-        changeModalStatus() {
-            this.modalStatus = !this.modalStatus;
-        },
-        getUsers() {
-            axios.get("/get-users").then(({ data }) => {
-                console.log(data);
-                this.users = data;
-            });
-        },
-        addUser() {
-            this.clearForm();
-            this.modalContent.title = "Create New User";
-            this.modalStatus = true;
-        },
-
-        editUser(user) {
-            this.editedUser = { ...user }; // Copy the user object to avoid modifying the original
-            this.editingUserId = user.id;
-            this.modalContent.title = "Edit User";
-            this.modalStatus = true;
-        },
-        deleteUser(id) {
-            axios.post("/delete-user", { id }).then(({ data }) => {
-                this.getUsers();
-            });
-        },
-        clearForm() {
-            this.editedUser = {
-                id: null,
-                name: "",
-                email: "",
-                role: "",
-                password: "",
-            };
-            this.changeModalStatus();
-            this.editingUserId = null;
-        },
-    },
-    mounted() {
-        this.getUsers();
-    },
-};
+    };
 </script>
