@@ -1,7 +1,15 @@
 <template>
     <Layout>
-        <!-- Main modal -->
+        <!-- Add User button -->
+        <button
+            class="fixed top-20 right-10 block text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            type="button"
+            @click="addUser"
+        >
+            Add User
+        </button>
 
+        <!-- Main modal -->
         <Modal
             :modal-content="modalContent"
             :button-label="isNewUser ? 'Add User' : 'Edit User'"
@@ -71,7 +79,7 @@
                             >Temporary Password</label
                         >
                         <input
-                            v-model="editedUser.password"
+                            v-model="password"
                             type="text"
                             name="password"
                             id="password"
@@ -114,90 +122,12 @@
                         <td class="px-6 py-4">{{ user.role }}</td>
                         <td class="px-6 py-4">{{ user.email }}</td>
                         <td>
-                            <!-- <button
+                            <button
                                 class="bg-green-700 py-2 px-4 rounded text-white"
                                 @click="editUser(user)"
                             >
                                 Edit
-                            </button> -->
-                            <Modal
-                                :modalContent="{
-                                    title: 'Edit User',
-                                    content: 'Please edit in the user details',
-                                }"
-                                buttonLabel="Edit"
-                                cancelLabel="Cancel"
-                                saveLabel="Update"
-                                @save="submitUser"
-                                ><form>
-                                    <div class="mb-4">
-                                        <label
-                                            for="name"
-                                            class="block text-sm font-medium text-gray-900 dark:text-white"
-                                        >
-                                            Name
-                                        </label>
-                                        <input
-                                            type="text"
-                                            name="name"
-                                            id="name"
-                                            :value="user.name"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="Name"
-                                            required
-                                        />
-                                    </div>
-
-                                    <!-- Add fields for user.email and user.role -->
-                                    <div class="mb-4">
-                                        <label
-                                            for="email"
-                                            class="block text-sm font-medium text-gray-900 dark:text-white"
-                                        >
-                                            Email
-                                        </label>
-                                        <input
-                                            type="text"
-                                            name="email"
-                                            id="email"
-                                            :value="user.email"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="Email"
-                                            required
-                                        />
-                                    </div>
-
-                                    <div class="mb-4">
-                                        <label
-                                            for="role"
-                                            class="block text-sm font-medium text-gray-900 dark:text-white"
-                                        >
-                                            Role
-                                        </label>
-
-                                        <select
-                                            :value="user.role"
-                                            name="role"
-                                            id="role"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            placeholder="Select a role"
-                                            required
-                                        >
-                                            <option selected>
-                                                Choose a role
-                                            </option>
-                                            <option value="admin">admin</option>
-                                            <option value="IGP">IGP</option>
-                                            <option value="Project">
-                                                Project
-                                            </option>
-                                            <option value="Employee">
-                                                Employee
-                                            </option>
-                                        </select>
-                                    </div>
-                                </form>
-                            </Modal>
+                            </button>
                         </td>
                         <td class="py-4">
                             <button
@@ -216,7 +146,7 @@
 
 <script>
 import axios from "axios";
-import Modal from "@/Component/Modal.vue";
+import Modal from "@/Component/Modal.vue"; // Adjust the import path based on your actual file structure
 
 export default {
     components: {
@@ -239,7 +169,7 @@ export default {
                 password: "",
             },
             modalContent: {
-                title: "Create New User",
+                title: "User Details",
                 content: "Please fill in the user details",
                 disablebtn: false,
             },
@@ -308,7 +238,6 @@ export default {
                 role: "",
                 password: "",
             };
-            this.changeModalStatus;
             this.editingUserId = null;
         },
     },

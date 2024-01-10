@@ -1,6 +1,6 @@
 import App from "@/Component/App.vue";
+import Modal from "@/Component/Modal.vue";
 import User from "@/Component/UserComp/User.vue";
-import UserForm from "@/Component/UserComp/UserForm.vue";
 import Category from "@/Component/ProdComp/Category.vue";
 import Product from "@/Component/ProdComp/Product.vue";
 
