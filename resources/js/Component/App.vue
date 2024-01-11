@@ -1,18 +1,22 @@
 <template>
-    <Layout :authenticated="this.authenticated"> <user> </user> </Layout>
+    <Layout :authenticated="this.authenticated"> <MainUser /> </Layout>
 </template>
 
 <script>
 import Layout from "../Layout/Layout.vue";
-import User from "../Component/UserComp/User.vue";
+//import User from "@/Component/UserComp/User.vue";
+import MainUser from "@/Component/UserComp/MainUser.vue";
+import AddUser from "@/Component/UserComp/AddUser.vue";
+import EditUser from "@/Component/UserComp/EditUser.vue";
 import Modal from "../Component/Modal.vue";
-// import UserForm from "../Component/UserComp/UserForm.vue";
 
 export default {
     props: ["authenticated"],
     components: {
         Layout,
-        User,
+        MainUser,
+        AddUser,
+        EditUser,
         Modal,
     },
     data() {
