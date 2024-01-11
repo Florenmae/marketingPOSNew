@@ -141,13 +141,11 @@
 <script>
 import axios from "axios";
 import Modal from "@/Component/Modal.vue";
-import AddUser from "@/Component/UserComp/AddUser.vue";
 import EditUser from "@/Component/UserComp/EditUser.vue";
 
 export default {
     components: {
         Modal,
-        AddUser,
         EditUser,
     },
     data() {
@@ -222,7 +220,7 @@ export default {
         },
 
         editUser(user) {
-            this.editedUser = { ...user }; // Copy the user object to avoid modifying the original
+            this.editedUser = { ...user }; 
             this.editingUserId = user.id;
             this.modalContent.title = "Edit User";
             this.modalStatus = true;
