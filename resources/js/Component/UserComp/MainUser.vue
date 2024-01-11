@@ -109,20 +109,7 @@
                     <td class="px-6 py-4">{{ user.role }}</td>
                     <td class="px-6 py-4">{{ user.email }}</td>
                     <td>
-                        <Modal
-                            :modalContent="{
-                                title: 'Edit User',
-                                content: 'Please edit the user details',
-                                disablebtn: false,
-                            }"
-                            :buttonLabel="'Edit'"
-                            :cancelLabel="'Close'"
-                            :saveLabel="'Update'"
-                            @save="updateExistingUser"
-                            :save-option="true"
-                        >
-                            <EditUser :user="user" />
-                        </Modal>
+                        <EditUser :user="user" />
                     </td>
                     <td class="py-4">
                         <button
@@ -197,18 +184,19 @@ export default {
                 .get("/get-users")
                 .then(({ data }) => {
                     this.users = data;
+                    console.log(data);
                 })
                 .catch((error) => {
                     console.error("Error fetching users:", error);
                 });
         },
-        updateExistingUser() {
+        updateExistingUser(data) {
             const { editedUser, editingUserId } = this;
             const userPayload = { ...editedUser };
             delete userPayload.password;
 
             axios
-                .post(`/update-user/${editingUserId}`, userPayload)
+                .post("/update-user", { userPayload, editingUserId })
                 .then(({ data }) => {
                     this.clearForm();
                     this.getUsers();
@@ -220,7 +208,7 @@ export default {
         },
 
         editUser(user) {
-            this.editedUser = { ...user }; 
+            this.editedUser = { ...user };
             this.editingUserId = user.id;
             this.modalContent.title = "Edit User";
             this.modalStatus = true;

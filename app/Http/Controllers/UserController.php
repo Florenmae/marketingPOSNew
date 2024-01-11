@@ -27,18 +27,27 @@ class UserController extends Controller
         return User::all();
         }
 
-        public function updateUser(Request $request, $id)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users,email,' . $id,
-            'role' => 'required|string',
-        ]);
 
-        $user = User::findOrFail($id);
-        $user->update($validatedData);
 
-        return response()->json($user, 200);
+
+    public function updateUser(Request $request){
+        // dd($request->userPayload["name"]);
+        $user = User::findOrFail($request->editingUserId);
+
+
+        // $validatedData = $request->validate([
+        //     'name' => 'required|string',
+        //     'email' => 'required|email|unique:users,email',
+        //     'role' => 'required|string',
+        // ]);
+
+        $user->name = $request->userPayload["name"];
+        $user->email = $request->userPayload["email"];
+        $user->role = $request->userPayload["role"];
+
+        $user->save();
+
+        return $user;
     }
 
     public function deleteUser(Request $request){

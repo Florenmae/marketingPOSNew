@@ -1,5 +1,16 @@
 <template>
-    <form @submit.prevent="updateExistingUser">
+    <Modal
+        :modalContent="{
+            title: 'Edit User',
+            content: 'Please edit the user details',
+            disablebtn: false,
+        }"
+        :buttonLabel="'Edit'"
+        :cancelLabel="'Close'"
+        :saveLabel="'Update'"
+        @save="updateExistingUser"
+        :save-option="true"
+    >
         <div class="grid gap-4 mb-4 grid-cols-2">
             <div class="col-span-2 border-red-500">
                 <label
@@ -52,15 +63,19 @@
                 </select>
             </div>
         </div>
-    </form>
+    </Modal>
 </template>
 
 <script>
+import Modal from "@/Component/Modal.vue";
 export default {
     props: ["user"],
+    components: {
+        Modal,
+    },
     data() {
         return {
-            editingUserId: null,
+            editingUserId: this.user.id,
             editedUser: {
                 name: "",
                 email: "",
@@ -81,10 +96,11 @@ export default {
         updateExistingUser() {
             const { editedUser, editingUserId } = this;
             const userPayload = { ...editedUser };
+            console.log(userPayload);
             delete userPayload.password;
 
             axios
-                .post(`/update-user/${editingUserId}`, userPayload)
+                .post("/update-user", { userPayload, editingUserId })
                 .then(({ data }) => {
                     this.clearForm();
                     this.getUsers();
@@ -94,6 +110,9 @@ export default {
                     console.error("Error updating user:", error);
                 });
         },
+    },
+    mounted() {
+        // console.log(this.user.id);
     },
 };
 </script>

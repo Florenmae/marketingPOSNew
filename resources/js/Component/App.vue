@@ -41,12 +41,12 @@ export default {
         this.checkAuth();
     },
 
-    watch: {
-        authenticated(newValue) {
-            if (!newValue) {
-                this.$router.push("/");
-            }
-        },
-    },
+    // watch: {
+    //     authenticated(newValue) {
+    //         if (!newValue) {
+    //             this.$router.push("/");
+    //         }
+    //     },
+    // },
 };
 </script>
