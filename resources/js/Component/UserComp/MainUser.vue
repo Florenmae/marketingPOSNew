@@ -198,7 +198,6 @@ export default {
             axios
                 .post("/update-user", { userPayload, editingUserId })
                 .then(({ data }) => {
-                    this.clearForm();
                     this.getUsers();
                     this.changeModalStatus();
                 })

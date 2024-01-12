@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SignupController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,9 @@ Route::get("/get-users", [UserController::class, "getUsers"]);
 Route::post("/update-user", [UserController::class, "updateUser"]);
 Route::post("/delete-user", [UserController::class, "deleteUser"]);
 
+//Product
+Route::post("/submit-product", [ProductController::class, 'createProduct'])->name("createProduct");
+Route::get("/get-products", [ProductController::class, 'getProducts']);
 
 
 //

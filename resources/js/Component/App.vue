@@ -1,11 +1,15 @@
 <template>
-    <Layout> <MainUser /> </Layout>
+    <Layout>
+        <MainUser :userData="userData" />
+        <Product :productData="productData" />
+    </Layout>
 </template>
 
 <script>
 import Layout from "../Layout/Layout.vue";
 import MainUser from "@/Component/UserComp/MainUser.vue";
 import EditUser from "@/Component/UserComp/EditUser.vue";
+import Product from "@/Component/ProdComp/Product.vue";
 import Modal from "../Component/Modal.vue";
 
 export default {
@@ -15,6 +19,7 @@ export default {
         MainUser,
         EditUser,
         Modal,
+        Product,
     },
     data() {
         return {
@@ -36,17 +41,23 @@ export default {
         editSuccess() {
             this.checkAuth();
         },
+        fetchData() {
+            axios.get("/get-users").then(({ data }) => {
+                this.userData = data;
+            });
+
+            axios.get("/get-categories").then(({ data }) => {
+                this.categoryData = data;
+            });
+
+            axios.get("/get-products").then(({ data }) => {
+                this.productData = data;
+            });
+        },
     },
     mounted() {
         this.checkAuth();
+        this.fetchData();
     },
-
-    // watch: {
-    //     authenticated(newValue) {
-    //         if (!newValue) {
-    //             this.$router.push("/");
-    //         }
-    //     },
-    // },
 };
 </script>
