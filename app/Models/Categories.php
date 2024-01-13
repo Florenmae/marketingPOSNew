@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Product;
 
 class Categories extends Model
 {
@@ -11,15 +12,18 @@ class Categories extends Model
     protected  $fillable=[
         'cat_code',
         'categoryName',
+        'product_count'
 
     ];
 
-    protected $attributes = [
-        'product_count' => 0,
-    ];
+    protected $primarykey = 'cat_code';
+
+    // protected $attributes = [
+    //     'product_count' => 0,
+    // ];
 
     public function products()
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Product::class, 'cat_code', 'product_code');
     }
 }

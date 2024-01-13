@@ -13,7 +13,7 @@ class ProductController extends Controller
         $newProduct->id = $request->id;
         $newProduct->name = $request->name;
         $newProduct->supplier = $request->supplier;
-        $newProduct->product_code = $request->product_code;
+        $newProduct->cat_code = $request->cat_code;
         $newProduct->item_code = $request->item_code;
         $newProduct->price = $request->price;
         $newProduct->qty = $request-> qty;
@@ -33,7 +33,7 @@ class ProductController extends Controller
 
         $product->name = $request->prodPayload["name"];
         $product->supplier = $request->prodPayload["supplier"];
-        $product->product_code = $request->prodPayload["product_code"];
+        $product->cat_code = $request->prodPayload["cat_code"];
         $product->item_code = $request->prodPayload["item_code"];
         $product->price = $request->prodPayload["price"];
         $product->qty = $request->prodPayload["qty"];

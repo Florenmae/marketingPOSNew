@@ -1,7 +1,7 @@
 <template>
     <Layout>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <addCategory class="fixed top-20 right-10" />
+            <addCategory class="fixed top-20 right-10"></addCategory>
             <table
                 class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
             >
@@ -9,8 +9,8 @@
                     class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
                 >
                     <tr>
-                        <th scope="col" class="px-6 py-3">Category Code</th>
                         <th scope="col" class="px-6 py-3">Category Name</th>
+                        <th scope="col" class="px-6 py-3">Category Code</th>
                         <th scope="col" class="px-6 py-3">Product Count</th>
                         <th scope="col" class="px-6 py-3">Action</th>
                     </tr>
@@ -25,11 +25,11 @@
                             scope="row"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                         >
-                            {{ category.name }}
+                            {{ category.categoryName }}
                         </th>
                         <td class="px-6 py-4">{{ category.cat_code }}</td>
-                        <td class="px-6 py-4">{{ category.categoryName }}</td>
-                        <td class="px-6 py-4">{{ category.productCount }}</td>
+                        <td class="px-6 py-4">{{ category.product_count }}</td>
+
                         <td>
                             <editCategory :category="category" />
                         </td>
@@ -63,7 +63,7 @@ export default {
             editCategory: {
                 cat_code: "",
                 categoryName: "",
-                productCount: "",
+                product_count: "",
             },
             categories: [],
             editingCategoryId: null,
@@ -73,6 +73,7 @@ export default {
     methods: {
         submitCategory() {
             const { editCategory } = this;
+
             const catPayload = {
                 ...editCategory,
             };
@@ -80,6 +81,7 @@ export default {
             axios
                 .post("/submit-category", catPayload)
                 .then(({ data }) => {
+                    this.clearForm();
                     this.getCategories();
                     this.changeModalStatus();
                 })
@@ -122,12 +124,11 @@ export default {
                 this.getCategories();
             });
         },
-
         clearForm() {
             this.editCategory = {
                 cat_code: "",
                 categoryName: "",
-                productCount: "",
+                product_count: "",
             };
             this.changeModalStatus();
             this.editingCategoryId = null;

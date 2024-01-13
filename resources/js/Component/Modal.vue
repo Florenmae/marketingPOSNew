@@ -1,6 +1,6 @@
 <template>
     <div class="">
-        <div class="">
+        <div class="flex items-center justify-center   ">
             <button
                 @click="isOpen = true"
                 class="bg-green-500 px-4 py-2 rounded-md text-white my-4 text-sm hover:bg-green-600"

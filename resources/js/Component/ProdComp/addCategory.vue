@@ -58,7 +58,7 @@ export default {
             editCategory: {
                 cat_code: "",
                 categoryName: "",
-                productCount: "",
+                product_count: "",
             },
             editingCategoryId: null,
             modalContent: {
@@ -71,7 +71,6 @@ export default {
     methods: {
         submitCategory() {
             const { editCategory } = this;
-
             const catPayload = {
                 ...editCategory,
             };
@@ -79,7 +78,6 @@ export default {
             axios
                 .post("/submit-category", catPayload)
                 .then(({ data }) => {
-                    this.clearForm();
                     this.getCategories();
                     this.changeModalStatus();
                 })

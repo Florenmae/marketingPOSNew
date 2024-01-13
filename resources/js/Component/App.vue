@@ -1,7 +1,8 @@
 <template>
     <Layout>
-        <MainUser :userData="userData" />
-        <Product :productData="productData" />
+        <MainUser />
+        <Product />
+        <Category />
     </Layout>
 </template>
 
@@ -12,6 +13,7 @@ import EditUser from "@/Component/UserComp/EditUser.vue";
 import Product from "@/Component/ProdComp/Product.vue";
 import Category from "@/Component/ProdComp/Category.vue";
 import editProduct from "@/Component/ProdComp/editProduct.vue";
+import editCategory from "@/Component/ProdComp/editCategory.vue";
 import Modal from "../Component/Modal.vue";
 
 export default {
@@ -23,6 +25,7 @@ export default {
         Modal,
         Product,
         Category,
+        editCategory,
         editProduct,
     },
     data() {
@@ -30,6 +33,7 @@ export default {
             authenticated: 0,
             users: [],
             products: [],
+            categories: [],
         };
     },
     methods: {

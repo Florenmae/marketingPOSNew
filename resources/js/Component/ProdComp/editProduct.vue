@@ -14,15 +14,15 @@
         <div class="grid gap-4 mb-4 grid-cols-2">
             <div class="col-span-2">
                 <label
-                    for="product_code"
+                    for="cat_code"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >Product Code</label
                 >
                 <input
-                    v-model="product.product_code"
+                    v-model="product.cat_code"
                     type="text"
-                    name="product_code"
-                    id="product_code"
+                    name="cat_code"
+                    id="cat_code"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Type the product code"
                     required=""
@@ -124,8 +124,6 @@
                     name="description"
                     id="description"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Product Details"
-                    required=""
                 />
             </div>
         </div>
@@ -144,7 +142,7 @@ export default {
             editingProductId: this.product.id,
             editProduct: {
                 item_code: "",
-                product_code: "",
+                cat_code: "",
                 name: "",
                 supplier: "",
                 price: "",

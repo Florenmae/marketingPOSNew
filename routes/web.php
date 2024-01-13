@@ -39,7 +39,7 @@ Route::post("/delete-product", [ProductController::class, 'deleteProduct']);
 
 //Category
 Route::post("/submit-category", [CategoryController::class, 'createCategory'])->name("createCategory");
-Route::post("/get-categories", [CategoryController::class, 'getCategory']);
+Route::get("/get-categories", [CategoryController::class, 'getCategories'])->name("getCategories");
 Route::post("/update-category", [CategoryController::class, 'updateCategory']);
 Route::post("/delete-category", [CategoryController::class, 'deleteCategory']);
 
