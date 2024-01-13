@@ -27,19 +27,9 @@ class UserController extends Controller
         return User::all();
         }
 
-
-
-
     public function updateUser(Request $request){
         // dd($request->userPayload["name"]);
         $user = User::findOrFail($request->editingUserId);
-
-
-        // $validatedData = $request->validate([
-        //     'name' => 'required|string',
-        //     'email' => 'required|email|unique:users,email',
-        //     'role' => 'required|string',
-        // ]);
 
         $user->name = $request->userPayload["name"];
         $user->email = $request->userPayload["email"];

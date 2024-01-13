@@ -5,6 +5,11 @@ import Modal from "@/Component/Modal.vue";
 import EditUser from "@/Component/UserComp/EditUser.vue";
 import MainUser from "@/Component/UserComp/MainUser.vue";
 import Product from "@/Component/ProdComp/Product.vue";
+import Category from "@/Component/ProdComp/Category.vue";
+import addProduct from "@/Component/ProdComp/addProduct.vue";
+import editProduct from "@/Component/ProdComp/editProduct.vue";
+import editCategory from "@/Component/ProdComp/editCategory.vue";
+import addCategory from "@/Component/ProdComp/addCategory.vue";
 
 import { createRouter, createWebHistory } from "vue-router";
 import { routes } from "./routes";
@@ -23,6 +28,11 @@ app.component("app", App);
 app.component("MainUser", MainUser);
 app.component("EditUser", EditUser);
 app.component("product", Product);
+app.component("addproduct", addProduct);
+app.component("editproduct", editProduct);
+app.component("category", Category);
+app.component("editcategory", editCategory);
+app.component("addcategory", addCategory);
 app.component("modal", Modal);
 app.component("Layout", Layout);
 

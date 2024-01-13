@@ -10,6 +10,8 @@ import Layout from "../Layout/Layout.vue";
 import MainUser from "@/Component/UserComp/MainUser.vue";
 import EditUser from "@/Component/UserComp/EditUser.vue";
 import Product from "@/Component/ProdComp/Product.vue";
+import Category from "@/Component/ProdComp/Category.vue";
+import editProduct from "@/Component/ProdComp/editProduct.vue";
 import Modal from "../Component/Modal.vue";
 
 export default {
@@ -20,11 +22,14 @@ export default {
         EditUser,
         Modal,
         Product,
+        Category,
+        editProduct,
     },
     data() {
         return {
             authenticated: 0,
             users: [],
+            products: [],
         };
     },
     methods: {
