@@ -92,6 +92,7 @@ export default {
         return {
             email: "",
             password: "",
+            message: this.$route.query.messageSent,
             errorMsg: "",
         };
     },
@@ -101,8 +102,14 @@ export default {
             axios
                 .post("/login", { email, password })
                 .then((res) => {
-                    if (res.status == 200) {
-                        this.$router.push("/home");
+                    if (res.status === 200) {
+                        console.log(res);
+                        console.log("User Role:", res.data.role);
+                        if (res.data.role === "admin") {
+                            this.$router.push("/home");
+                        } else {
+                            this.$router.push("/userHome");
+                        }
                     }
                 })
                 .catch((err) => {
@@ -115,4 +122,3 @@ export default {
     },
 };
 </script>
-<style lang=""></style>

@@ -12,10 +12,12 @@ import editProduct from "@/Component/ProdComp/editProduct.vue";
 import editCategory from "@/Component/ProdComp/editCategory.vue";
 import addCategory from "@/Component/ProdComp/addCategory.vue";
 
+import userHome from "@/Component/userHome.vue";
 import { createRouter, createWebHistory } from "vue-router";
 import { routes } from "./routes";
 
 import Layout from "@/Layout/Layout.vue";
+import userLayout from "@/Layout/userLayout.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -36,6 +38,9 @@ app.component("category", Category);
 app.component("editcategory", editCategory);
 app.component("addcategory", addCategory);
 app.component("modal", Modal);
+
+app.component("userHome", userHome);
 app.component("Layout", Layout);
+app.component("userLayout", userLayout);
 
 app.mount("#app");

@@ -3,6 +3,8 @@ import Modal from "@/Component/Modal.vue";
 import MainUser from "@/Component/UserComp/MainUser.vue";
 import Category from "@/Component/ProdComp/Category.vue";
 import Product from "@/Component/ProdComp/Product.vue";
+
+import userHome from "@/Component/userHome.vue";
 import Login from "@/Pages/Login.vue";
 import Signup from "@/Pages/Signup.vue";
 
@@ -16,6 +18,11 @@ export const routes = [
         path: "/home",
         name: "home",
         component: App,
+    },
+    {
+        path: "/userHome",
+        name: "userHome",
+        component: userHome,
     },
     {
         path: "/MainUser",
