@@ -40,6 +40,7 @@ class UserController extends Controller
         return $user;
     }
 
+
     public function deleteUser(Request $request){
         // dd($request->id);
         $deleteUser = User::find($request->id);

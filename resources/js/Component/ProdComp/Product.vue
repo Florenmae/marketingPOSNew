@@ -31,7 +31,7 @@
                         >
                             {{ product.name }}
                         </th>
-                        <td class="px-6 py-4">{{ product.product_code }}</td>
+                        <td class="px-6 py-4">{{ product.cat_code }}</td>
                         <td class="px-6 py-4">{{ product.item_code }}</td>
                         <td class="px-6 py-4">{{ product.supplier }}</td>
                         <td class="px-6 py-4">{{ product.price }}</td>
@@ -84,7 +84,6 @@ export default {
     methods: {
         submitProduct() {
             const { editProduct } = this;
-
             const prodPayload = {
                 ...editProduct,
             };
@@ -92,7 +91,6 @@ export default {
             axios
                 .post("/submit-product", prodPayload)
                 .then(({ data }) => {
-                    this.clearForm();
                     this.getProducts();
                     this.changeModalStatus();
                 })
@@ -103,6 +101,7 @@ export default {
         changeModalStatus() {
             this.modalStatus = !this.modalStatus;
         },
+        
         getProducts() {
             axios.get("/get-products").then(({ data }) => {
                 this.products = data;
@@ -135,19 +134,19 @@ export default {
                 this.getProducts();
             });
         },
-        clearForm() {
-            this.editProduct = {
-                item_code: "",
-                product_code: "",
-                name: "",
-                supplier: "",
-                price: "",
-                qty: "",
-                description: "",
-            };
-            this.changeModalStatus();
-            this.editingProductId = null;
-        },
+        // clearForm() {
+        //     this.editProduct = {
+        //         item_code: "",
+        //         product_code: "",
+        //         name: "",
+        //         supplier: "",
+        //         price: "",
+        //         qty: "",
+        //         description: "",
+        //     };
+        //     this.changeModalStatus();
+        //     this.editingProductId = null;
+        // },
     },
     mounted() {
         this.getProducts();

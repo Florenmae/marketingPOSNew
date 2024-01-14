@@ -166,8 +166,7 @@ export default {
             axios
                 .post("/submit-product", prodPayload)
                 .then(({ data }) => {
-                    this.getProducts();
-                    this.changeModalStatus();
+                    this.$router.push("/products");
                 })
                 .catch((error) => {
                     console.error("Error submitting product:", error);

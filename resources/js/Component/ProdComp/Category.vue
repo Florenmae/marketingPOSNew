@@ -73,7 +73,6 @@ export default {
     methods: {
         submitCategory() {
             const { editCategory } = this;
-
             const catPayload = {
                 ...editCategory,
             };
@@ -92,6 +91,7 @@ export default {
         changeModalStatus() {
             this.modalStatus = !this.modalStatus;
         },
+
         getCategories() {
             axios.get("/get-categories").then(({ data }) => {
                 this.categories = data;
@@ -113,9 +113,6 @@ export default {
                 .then(({ data }) => {
                     this.getCategories();
                     this.changeModalStatus();
-                })
-                .catch((error) => {
-                    console.error("Error updating category:", error);
                 });
         },
 
@@ -124,15 +121,15 @@ export default {
                 this.getCategories();
             });
         },
-        clearForm() {
-            this.editCategory = {
-                cat_code: "",
-                categoryName: "",
-                product_count: "",
-            };
-            this.changeModalStatus();
-            this.editingCategoryId = null;
-        },
+        // clearForm() {
+        //     this.editCategory = {
+        //         cat_code: "",
+        //         categoryName: "",
+        //         product_count: "",
+        //     };
+        //     this.changeModalStatus();
+        //     this.editingCategoryId = null;
+        // },
     },
     mounted() {
         this.getCategories();

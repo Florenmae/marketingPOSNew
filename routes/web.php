@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SignupController;
@@ -24,11 +25,18 @@ Route::post("/signup", [SignupController::class, "signup"]);
 Route::get("/checkUser", [LoginController::class, "checkLogin"]);
 Route::post("/logout", [LoginController::class, "logout"]);
 
+//Home controller
+Route::post("/home", [HomeController::class,'index']);
+Route::get("/get-user-count", [HomeController::class, 'getUserCount']);
+Route::get("/get-product-count", [HomeController::class, 'getProductCount']);
+Route::get("/get-category-count", [HomeController::class, 'getCategoryCount']);
+
 //User
 Route::post("/submit-user", [UserController::class, 'createUser'])->name("createUser");
 Route::get("/get-users", [UserController::class, "getUsers"]);
 Route::post("/update-user", [UserController::class, "updateUser"]);
 Route::post("/delete-user", [UserController::class, "deleteUser"]);
+//Route::get("/get-user-count", [UserController::class, 'getUserCount']);
 
 //Product
 Route::post("/submit-product", [ProductController::class, 'createProduct'])->name("createProduct");
